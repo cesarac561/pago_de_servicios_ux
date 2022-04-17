@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.bootcamp.reactive</groupId>
-	<artifactId>pago_de_servicios</artifactId>
+	<artifactId>pagfav_ux</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pago_de_servicios</name>
+	<name>pagfav_ux</name>
 	<description>API Rest para pago de servicios con web flux</description>
 	<properties>
 		<java.version>11</java.version>

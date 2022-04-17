@@ -21,15 +21,6 @@ public class SecurityConfig {
                 .oauth2ResourceServer()
                 .jwt();
 
-//        http.authorizeExchange()
-//                .pathMatchers("/subscribers").permitAll()
-//                .pathMatchers(HttpMethod.OPTIONS).permitAll()
-//                .anyExchange()
-//                .authenticated()
-//                .and()
-//                .oauth2ResourceServer()
-//                .jwt();
-
         return http.build();
     }
 }

@@ -4,7 +4,9 @@ import com.bootcamp.reactive.pago_de_servicios_ux.core.exceptions.ServicioUxBase
 import com.bootcamp.reactive.pago_de_servicios_ux.entities.Servicio;
 import com.bootcamp.reactive.pago_de_servicios_ux.repositories.ServicioRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.data.redis.core.ReactiveHashOperations;
 import org.springframework.data.redis.core.ReactiveRedisOperations;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,9 @@ public class ServicioRepositoryImpl implements ServicioRepository {
 
     private final ReactiveRedisOperations<String, Servicio> redisOperations;
     private final ReactiveHashOperations<String, String, Servicio> hashOperations;
+
+    @Autowired
+    private Environment env;
 
     public ServicioRepositoryImpl(WebClient.Builder builder,
                                   @Value( "${application.urlApiServicios:http://localhost/servicios}" ) String urlApiServicios,
@@ -91,7 +96,7 @@ public class ServicioRepositoryImpl implements ServicioRepository {
                 .toFuture().get();
 
             hashOperations.putAll(canalCodigo,map).toFuture().get();
-            redisOperations.expire(canalCodigo,Duration.ofMinutes(5)).toFuture().get();
+            redisOperations.expire(canalCodigo,Duration.ofSeconds(Long.parseLong(env.getProperty("spring.cache.redis.expire-time")))).toFuture().get();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
