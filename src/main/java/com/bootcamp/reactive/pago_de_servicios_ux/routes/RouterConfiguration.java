@@ -16,7 +16,7 @@ public class RouterConfiguration {
 
     @Bean
     public RouterFunction<ServerResponse> servicioUxRoutes(ServicioUxHandler servicioUxHandler) {
-        return RouterFunctions.nest(RequestPredicates.path(""),
+        return RouterFunctions.nest(RequestPredicates.path("pagfav"),
                 RouterFunctions
                         .route(GET("/obtener_servicios/canal/{canalCodigo}"), servicioUxHandler::obtenerServiciosPorCanal)
                         .andRoute(POST("/registrar_pago_favorito").and(contentType(APPLICATION_JSON)), servicioUxHandler::registrarPagoFavorito)
